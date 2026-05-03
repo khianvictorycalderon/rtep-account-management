@@ -1,17 +1,6 @@
+import { ABOUT, ABOUT_DESCRIPTION } from "../constants";
+
 export default function About() {
-  const ABOUT_DESCRIPTION = "A simple overview of this application";
-
-  const ABOUT = [
-    {
-      title: "What is this?",
-      desc: "This is <strong>blah blah blah</strong> with <em>HTML support</em>.",
-    },
-    {
-      title: "How did it come to this?",
-      desc: "It went through like this <br/> blah blah <u>blah</u>",
-    },
-  ];
-
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 px-6 py-16">
       <div className="w-full max-w-3xl space-y-10">

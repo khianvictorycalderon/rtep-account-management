@@ -1,20 +1,6 @@
+import { CHANGELOGS } from "../constants";
+
 export default function Changelogs() {
-  const CHANGELOGS = [
-    {
-        release: "1.0.1",
-        changes: [
-            "Added feature X",
-            "Added feature Y"
-        ]
-    },
-    {
-        release: "1.0.0",
-        changes: [
-            "Initial Release", 
-            "Built with blah blah blah"
-        ]
-    },
-  ];
 
   return (
     <div className="min-h-screen w-full flex justify-center bg-zinc-50 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 px-6 py-16">
