@@ -33,8 +33,23 @@
     - *Change the `DATABASE_URL` based on your actual database credentials.*
 2. Go to your PostgreSQL database and run the following SQL query:
     ```sql
+    -- Built-in table (Template)
+    CREATE EXTENSION IF NOT EXISTS "pgcrypto";
     CREATE TABLE users (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
+        first_name VARCHAR(30) NOT NULL,
+        middle_name VARCHAR(30),
+        last_name VARCHAR(30) NOT NULL,
+
+        birth_date DATE NOT NULL,
+
+        email VARCHAR(255) NOT NULL UNIQUE,
+
+        password_hash TEXT NOT NULL,
+
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     ```
 3. Run `npm install` to install necessary packages.
