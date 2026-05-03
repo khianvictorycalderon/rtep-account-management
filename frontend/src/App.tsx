@@ -8,7 +8,6 @@ import LandingPage from "./public_pages/LandingPage";
 import PrivateLayout from "./layouts/PrivateLayout";
 import Dashboard from "./private_pages/Dashboard";
 import Account from "./private_pages/Account";
-import Settings from "./private_pages/Settings";
 import PublicLayout from "./layouts/PublicLayout";
 import About from "./public_pages/About";
 import Changelogs from "./public_pages/Changelogs";
@@ -39,7 +38,6 @@ export default function App() {
 
   const PRIVATE_PAGES = [
     { path: "/dashboard", element: <Dashboard /> },
-    { path: "/settings", element: <Settings /> },
     { path: "/account", element: <Account /> }
   ];
 

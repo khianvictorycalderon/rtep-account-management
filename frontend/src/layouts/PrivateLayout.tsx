@@ -4,12 +4,11 @@ import { Outlet, Navigate } from "react-router-dom";
 import { BUILT_IN_API_URLS } from "../constants";
 import Sidebar from "../components/Sidebar";
 import TopNav from "../components/TopNav";
+import Loading from "../components/Loading";
 
 export default function PrivateLayout() {
     const [loading, setLoading] = useState(true);
     const [isAuth, setIsAuth] = useState(false);
-
-    // 👇 ADD THIS
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
@@ -31,11 +30,7 @@ export default function PrivateLayout() {
     }, []);
 
     if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center text-zinc-500">
-                Checking session...
-            </div>
-        );
+        return <Loading/>
     }
 
     if (!isAuth) {
@@ -43,22 +38,24 @@ export default function PrivateLayout() {
     }
 
     return (
-        <div className="min-h-screen flex bg-zinc-100 dark:bg-zinc-900">
+        <div className="min-h-screen flex flex-col">
 
-            {/* SIDEBAR */}
-            <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
+            {/* n = TOP NAV */}
+            <TopNav onMenuClick={() => setSidebarOpen(true)} />
 
-            {/* MAIN AREA */}
-            <div className="flex-1 flex flex-col">
+            {/* s + m row */}
+            <div className="flex flex-1 overflow-hidden">
 
-                {/* TOP NAVBAR */}
-                <TopNav onMenuClick={() => setSidebarOpen(true)} />
+                {/* s = SIDEBAR */}
+                <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
-                <main className="p-4">
+                {/* m = MAIN */}
+                <main className="flex-1 overflow-y-auto p-4 bg-neutral-100 dark:bg-neutral-900">
                     <Outlet />
                 </main>
 
             </div>
+
         </div>
     );
 }

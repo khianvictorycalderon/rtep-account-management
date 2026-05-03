@@ -40,15 +40,6 @@ export const SIDEBAR_BUTTONS: SidebarButton[] = [
             </svg>
         `,
     },
-    {
-        label: "Settings",
-        path: "/settings",
-        icon: `
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-width="2" d="M12 8a4 4 0 100 8 4 4 0 000-8zm9 4a7.8 7.8 0 00-.1-1l2-1.5-2-3.5-2.3 1a7.5 7.5 0 00-1.7-1l-.3-2.5h-4l-.3 2.5a7.5 7.5 0 00-1.7 1l-2.3-1-2 3.5 2 1.5a7.8 7.8 0 000 2l-2 1.5 2 3.5 2.3-1c.5.4 1.1.7 1.7 1l.3 2.5h4l.3-2.5c.6-.3 1.2-.6 1.7-1l2.3 1 2-3.5-2-1.5c.1-.3.1-.7.1-1z" />
-            </svg>
-        `,
-    },
 ];
 
 export const TOPNAV_HEADER = "RTEP Full-Stack System Template";

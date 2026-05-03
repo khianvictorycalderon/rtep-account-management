@@ -3,6 +3,7 @@ import axios from "axios";
 import { Outlet, Navigate } from "react-router-dom";
 import { BUILT_IN_API_URLS, PRIVATE_ROUTE_FIRST_PATH } from "../constants";
 import Footer from "../components/Footer";
+import Loading from "../components/Loading";
 
 export default function PublicLayoutRedirect() {
   const [loading, setLoading] = useState(true);
@@ -30,11 +31,7 @@ export default function PublicLayoutRedirect() {
   // Loading state (optional UI)
   // -----------------------------
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-zinc-500">
-        Loading...
-      </div>
-    );
+    return <Loading/>
   }
 
   // -----------------------------

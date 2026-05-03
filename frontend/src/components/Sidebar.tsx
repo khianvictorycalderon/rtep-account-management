@@ -20,9 +20,6 @@ export default function Sidebar({ open, setOpen }: Props) {
     const isActive = (path: string) =>
         location.pathname === path || location.pathname.startsWith(path + "/");
 
-    const currentPage =
-        SIDEBAR_BUTTONS.find((p) => isActive(p.path))?.label || "";
-
     // ✅ add logout as a "virtual route item"
     const SIDEBAR_ITEMS: SidebarItem[] = [
         ...SIDEBAR_BUTTONS,
@@ -58,21 +55,20 @@ export default function Sidebar({ open, setOpen }: Props) {
             <aside
                 className={`
                     fixed md:static z-50
-                    top-0 left-0 h-full w-64
-                    bg-zinc-100 dark:bg-zinc-900
-                    border-r border-zinc-200 dark:border-zinc-800
+                    top-0 left-0 h-screen w-64
+                    bg-neutral-50 dark:bg-neutral-800
                     flex flex-col
+                    overflow-y-auto
                     transform transition-transform duration-200
+                    border-r border-neutral-200 dark:border-neutral-700
                     ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
                 `}
             >
                 {/* HEADER */}
-                <div className="relative p-4 font-semibold text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800">
-                    {currentPage}
-
+                <div className="md:hidden relative p-4 pb-8 font-semibold text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800">    
                     <button
                         onClick={() => setOpen(false)}
-                        className="md:hidden absolute right-3 top-3 p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                        className="md:hidden absolute right-3 top-3 p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-700 cursor-pointer"
                     >
                         <svg
                             className="w-5 h-5"
@@ -134,8 +130,8 @@ export default function Sidebar({ open, setOpen }: Props) {
                                     flex items-center gap-2 px-3 py-2 rounded-md text-sm transition
                                     ${
                                         isActive(item.path!)
-                                            ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                                            : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                                            ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+                                            : "text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700"
                                     }
                                 `}
                             >
