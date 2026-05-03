@@ -14,7 +14,7 @@ export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
         label: "Changelogs",
         path: "/changelogs"
     }
-]
+];
 
 // ---------------------------------------------------
 // About Page
@@ -57,4 +57,4 @@ export const CHANGELOGS: { release: string; changes: string[] }[] = [
 export const ERROR_PAGE_MESSAGE: { main: string; additional: string } = {
     main: "Page not found",
     additional: "The page you're looking for doesn't exist or has been moved."
-}
+};
