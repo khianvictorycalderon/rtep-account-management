@@ -1,5 +1,5 @@
-export const slideToID = (id: string): void => {
-    const element = document.getElementById(id);
+export default function slideToID(id: string) {
+  const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
         behavior: 'smooth',
@@ -8,4 +8,4 @@ export const slideToID = (id: string): void => {
     } else {
       console.warn(`Element with id "${id}" not found.`);
     }
-};
+}
