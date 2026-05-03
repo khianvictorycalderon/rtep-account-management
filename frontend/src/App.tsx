@@ -13,6 +13,8 @@ import PublicLayout from "./layouts/PublicLayout";
 import About from "./public_pages/About";
 import Changelogs from "./public_pages/Changelogs";
 import SlideToTop from "./components/SlideToTop";
+import PrivacyPolicy from "./public_pages/PrivacyPolicy";
+import TermsConditions from "./public_pages/TermsConditions";
 
 export default function App() {
 
@@ -24,7 +26,9 @@ export default function App() {
   const PUBLIC_PAGES = [
     { path: "/", element: <LandingPage /> },
     { path: "/about", element: <About /> },
-    { path: "/changelogs", element: <Changelogs /> }
+    { path: "/changelogs", element: <Changelogs /> },
+    { path: "/privacy-policy", element: <PrivacyPolicy /> },
+    { path: "/terms-and-conditions", element: <TermsConditions /> },
   ];
 
   const EMPTY_PUBLIC_PAGES = [
