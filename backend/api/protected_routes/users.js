@@ -116,4 +116,41 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+/**
+ * DELETE /api/users/:id
+ */
+router.delete("/:id", async (req, res) => {
+  try {
+    if (req.params.id !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    const { password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
+    }
+
+    const result = await pool.query(
+      "SELECT password_hash FROM users WHERE id=$1",
+      [req.user.id]
+    );
+
+    const valid = await bcrypt.compare(password, result.rows[0].password_hash);
+
+    if (!valid) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    await pool.query("DELETE FROM users WHERE id=$1", [req.user.id]);
+
+    res.clearCookie("session_id");
+
+    return res.json({ message: "Account deleted" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Failed to delete account" });
+  }
+});
+
 module.exports = router;

@@ -34,6 +34,7 @@ export default function Account() {
 
   const [isSavingInfo, setIsSavingInfo] = useState(false);
   const [isSavingPassword, setIsSavingPassword] = useState(false);
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false);
 
   const [infoMessage, setInfoMessage] = useState<{ type: "success" | "error" | null; text: string }>({
     type: null,
@@ -45,11 +46,19 @@ export default function Account() {
     text: "",
   });
 
+  const [deleteMessage, setDeleteMessage] = useState<{ type: "success" | "error" | null; text: string }>({
+    type: null,
+    text: "",
+  });
+
   const [passwordForm, setPasswordForm] = useState({
     current_password: "",
     new_password: "",
     confirm_password: "",
   });
+
+  const [deletePassword, setDeletePassword] = useState("");
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const navigate = useNavigate();
 
@@ -99,6 +108,11 @@ export default function Account() {
   const showPasswordMessage = (type: "success" | "error", text: string) => {
     setPasswordMessage({ type, text });
     setTimeout(() => setPasswordMessage({ type: null, text: "" }), 3000);
+  };
+
+  const showDeleteMessage = (type: "success" | "error", text: string) => {
+    setDeleteMessage({ type, text });
+    setTimeout(() => setDeleteMessage({ type: null, text: "" }), 3000);
   };
 
   const handleUpdateInfo = async () => {
@@ -156,6 +170,32 @@ export default function Account() {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    if (!deletePassword.trim()) {
+      showDeleteMessage("error", "Please enter your password to confirm");
+      return;
+    }
+
+    setIsDeletingAccount(true);
+
+    try {
+      await axios.delete(
+        `${BUILT_IN_API_URLS.deleteUser}/${user.id}`,
+        {
+          data: { password: deletePassword },
+          withCredentials: true,
+        }
+      );
+
+      navigate("/");
+    } catch (err: any) {
+      const reason = err?.response?.data?.message || "Failed to delete account";
+      showDeleteMessage("error", reason);
+    } finally {
+      setIsDeletingAccount(false);
+    }
+  };
+
   const inputClass = (disabled: boolean) => `
     w-full px-3 py-2 rounded-lg border
     border-neutral-300 dark:border-neutral-600
@@ -184,7 +224,7 @@ export default function Account() {
 
         <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Account Information</h2>
-          <p className="italic text-sm text-neutral-900 dark:text-neutral-100">Email / Username cannot be changed upon account creation.</p>
+          <p className="italic text-sm text-neutral-500 dark:text-neutral-400">Email / Username cannot be changed upon account creation.</p>
         </div>
 
         <div className="p-6">
@@ -200,10 +240,7 @@ export default function Account() {
                 <input
                   type={field.type}
                   value={form[field.id] || ""}
-                  
-                  // Email cannot be changed
                   readOnly={field.id === "email"}
-
                   disabled={isSavingInfo}
                   onChange={(e) =>
                     setForm({ ...form, [field.id]: e.target.value })
@@ -293,7 +330,6 @@ export default function Account() {
 
           </div>
 
-          {/* Password requirements hint */}
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
             Password must be at least 8 characters and include uppercase, lowercase, a number, and a special character.
           </p>
@@ -318,6 +354,84 @@ export default function Account() {
               {isSavingPassword ? "Saving..." : "Update Password"}
             </button>
           </div>
+
+        </div>
+      </section>
+
+      {/* ================= DELETE ACCOUNT CARD ================= */}
+      <section className="rounded-2xl border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 shadow-sm">
+
+        <div className="p-6 border-b border-neutral-300 dark:border-neutral-600">
+          <h2 className="text-lg font-semibold text-red-600 dark:text-red-400">Delete Account</h2>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            This action is permanent and cannot be undone. All your data will be erased.
+          </p>
+        </div>
+
+        <div className="p-6 space-y-4">
+
+          {!showDeleteConfirm ? (
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="px-5 py-2 rounded-lg transition cursor-pointer bg-red-600 hover:bg-red-700 text-white"
+              >
+                Delete My Account
+              </button>
+            </div>
+          ) : (
+            <>
+              <p className="text-sm text-neutral-600 dark:text-neutral-300">
+                Enter your password to confirm account deletion:
+              </p>
+
+              <input
+                type="password"
+                placeholder="Your password"
+                disabled={isDeletingAccount}
+                value={deletePassword}
+                onChange={(e) => setDeletePassword(e.target.value)}
+                className={inputClass(isDeletingAccount)}
+              />
+
+              {deleteMessage.type && (
+                <div className={messageClass(deleteMessage.type)}>
+                  {deleteMessage.text}
+                </div>
+              )}
+
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setShowDeleteConfirm(false);
+                    setDeletePassword("");
+                    setDeleteMessage({ type: null, text: "" });
+                  }}
+                  disabled={isDeletingAccount}
+                  className={`
+                    px-5 py-2 rounded-lg transition
+                    border border-neutral-300 dark:border-neutral-600
+                    text-neutral-700 dark:text-neutral-300
+                    bg-white dark:bg-neutral-900
+                    ${isDeletingAccount ? "opacity-50 cursor-not-allowed" : "hover:opacity-80 cursor-pointer"}
+                  `}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={isDeletingAccount}
+                  className={`
+                    px-5 py-2 rounded-lg transition text-white bg-red-600
+                    ${isDeletingAccount ? "opacity-50 cursor-not-allowed" : "hover:bg-red-700 cursor-pointer"}
+                  `}
+                >
+                  {isDeletingAccount ? "Deleting..." : "Confirm Delete"}
+                </button>
+              </div>
+            </>
+          )}
 
         </div>
       </section>
