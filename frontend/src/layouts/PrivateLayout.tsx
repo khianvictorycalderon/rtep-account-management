@@ -14,7 +14,7 @@ export default function PrivateLayout() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await axios.get(BUILT_IN_API_URLS.authenticate, {
+                const res = await axios.get(BUILT_IN_API_URLS.verify, {
                     withCredentials: true,
                 });
 
