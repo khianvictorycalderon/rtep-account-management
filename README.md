@@ -81,6 +81,17 @@
 
 ---
 
+## Previews
+![Hero Dark Preivew](previews/hero_dark.png)
+![Hero Light Preivew](previews/hero_light.png)
+![Login Preivew](previews/login.png)
+![Register Preivew](previews/register.png)
+![Account Dark Preivew](previews/account_dark.png)
+![Account Light Preivew](previews/account_light.png)
+![Development Preivew](previews/development.png)
+
+---
+
 ## Dependencies & Configuration
 The following is a list of installed dependencies and configuration settings used in this project.
 You don’t need to install anything manually, as all dependencies are already managed through `package.json` (both frontend and backend).
