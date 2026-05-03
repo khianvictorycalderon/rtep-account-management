@@ -3,11 +3,11 @@
 // ---------------------------------------------------
 const ENV = import.meta.env;
 export const BUILT_IN_API_URLS = {
-    login: `${ENV.VITE_API_URL}/api/login`,                  // POST
-    register: `${ENV.VITE_API_URL}/api/register`,            // POST
-    updateUserData: `${ENV.VITE_API_URL}/api/users/<id>`,    // PATCH
-    deleteUser: `${ENV.VITE_API_URL}/api/users<id>`,         // DELETE
-    authenticate: `${ENV.VITE_API_URL}/api/auth`             // GET
+    login: `${ENV.VITE_API_URL}/api/login`,                                                                // POST
+    register: `${ENV.VITE_API_URL}/api/register`,                                                          // POST
+    updateUserData: `${ENV.VITE_API_URL}/api/users`, // extend with /<id>                                  // PATCH
+    deleteUser: `${ENV.VITE_API_URL}/api/users`,  // extend with /<id>                                     // DELETE
+    authenticate: `${ENV.VITE_API_URL}/api/auth`  // used to verify if user currently logged in or not     // GET
 } as const;
 
 // ---------------------------------------------------

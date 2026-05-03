@@ -39,6 +39,18 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello World from Express 🚀 as Serverless API!" });
 });
 
+app.use("/api/register", require("./routes/register"));
+// app.use("/api/login", require("./routes/login"));
+// app.use("/api/auth", require("./routes/auth"));
+
+// ---------------------------------------------------------
+// Protected routes
+// ---------------------------------------------------------
+// app.use() // verify in cookies or something
+// app.use("/api/users/:id", require("./protected_routes/users"));
+
+  // Add more here if authentication is required
+
 // ---------------------------------------------------------
 // Development testing (nodemon)
 // ---------------------------------------------------------

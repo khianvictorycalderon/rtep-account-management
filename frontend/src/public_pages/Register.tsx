@@ -7,6 +7,7 @@ export default function Register() {
     const [form, setForm] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const handleChange = (id: string, value: string) => {
       setForm((prev) => ({
@@ -20,10 +21,13 @@ export default function Register() {
 
       setLoading(true);
       setError("");
+      setSuccess(false);
 
       try {
         await axios.post(BUILT_IN_API_URLS.register, form);
-        console.log("Registered:", form);
+
+        setSuccess(true);
+        setForm({}); // optional: clear form
       } catch (err: any) {
         setError(err?.response?.data?.message || "Registration failed");
       } finally {
@@ -115,6 +119,25 @@ export default function Register() {
                 border border-red-200/60 dark:border-red-900/40
               ">
                 {error}
+              </div>
+            )}
+
+            {success && (
+              <div className="
+                text-center px-4 py-3 rounded-md
+                bg-emerald-50 dark:bg-emerald-950/40
+                border border-emerald-200/60 dark:border-emerald-900/40
+                text-emerald-700 dark:text-emerald-300
+              ">
+                Account created successfully 🎉
+                <div className="mt-2">
+                  <Link
+                    to="/login"
+                    className="text-sm underline hover:opacity-80"
+                  >
+                    Go to login
+                  </Link>
+                </div>
               </div>
             )}
 
