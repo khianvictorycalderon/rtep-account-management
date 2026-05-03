@@ -1,18 +1,6 @@
+import { TERMS_CONDITIONS, TERMS_LAST_UPDATED_DATE } from "../constants";
+
 export default function TermsConditions() {
-
-  const TERMS_LAST_UPDATED_DATE: string = "May 3, 2026 @ 8:00 PM";
-
-  const TERMS_CONDITIONS = [
-    {
-      title: "Usage",
-      desc: "Blah blah blah"
-    },
-    {
-      title: "Legal Framework",
-      desc: "Blah blah blah"
-    }
-  ];
-
   return (
     <div className="min-h-screen w-full flex justify-center bg-zinc-50 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 px-6 py-24">
       <div className="w-full max-w-3xl space-y-10">
@@ -38,9 +26,10 @@ export default function TermsConditions() {
                 {item.title}
               </h2>
 
-              <p className="mt-2 text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                {item.desc}
-              </p>
+              <p
+                className="mt-2 text-zinc-600 dark:text-zinc-400 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: item.desc }}
+              />
             </div>
           ))}
         </div>

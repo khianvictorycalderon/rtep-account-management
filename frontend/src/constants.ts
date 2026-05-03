@@ -85,6 +85,36 @@ export const CHANGELOGS: { release: string; changes: string[] }[] = [
   ];
 
 // ---------------------------------------------------
+// Terms and Conditions
+// ---------------------------------------------------
+export const TERMS_LAST_UPDATED_DATE: string = "May 3, 2026 @ 8:00 PM";
+export const TERMS_CONDITIONS: { title: string; desc: string }[] = [
+    {
+        title: "Usage",
+        desc: "Blah blah blah"
+    },
+    {
+        title: "Legal Framework",
+        desc: "Blah blah blah"
+    }
+];
+
+// ---------------------------------------------------
+// Privacy Policy
+// ---------------------------------------------------
+export const PRIVACY_LAST_UPDATED_DATE: string = "May 3, 2026 @ 8:00 PM";
+export const PRIVACY_POLICY: { title: string; desc: string }[] = [
+    {
+      title: "Data",
+      desc: "Blah blah blah"
+    },
+    {
+      title: "Third Party",
+      desc: "Blah blah blah"
+    }
+];
+
+// ---------------------------------------------------
 // Error Page
 // ---------------------------------------------------
 export const ERROR_PAGE_MESSAGE: { main: string; additional: string } = {
