@@ -4,11 +4,13 @@
 const ENV = import.meta.env;
 export const BUILT_IN_API_URLS = {
     login: `${ENV.VITE_API_URL}/api/login`,                                                                // POST
+    logout: `${ENV.VITE_API_URL}/api/logout`,                                                              // DELETE
     register: `${ENV.VITE_API_URL}/api/register`,                                                          // POST
     updateUserData: `${ENV.VITE_API_URL}/api/users`, // extend with /<id>                                  // PATCH
     deleteUser: `${ENV.VITE_API_URL}/api/users`,  // extend with /<id>                                     // DELETE
     authenticate: `${ENV.VITE_API_URL}/api/auth`  // used to verify if user currently logged in or not     // GET
 } as const;
+export const PRIVATE_ROUTE_FIRST_PATH = "/dashboard";
 
 // ---------------------------------------------------
 // Register Page

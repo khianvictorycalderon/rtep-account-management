@@ -4,7 +4,7 @@
 require("dotenv").config(); // Load env FIRST
 const express = require("express");
 const cors = require("cors");
-
+const cookieParser = require("cookie-parser");
 const app = express();
 
 // ---------------------------------------------------------
@@ -26,9 +26,11 @@ app.use(
       }
       return callback(new Error("Not allowed by CORS"));
     },
+    credentials: true,
   })
 );
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -40,8 +42,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/register", require("./routes/register"));
-// app.use("/api/login", require("./routes/login"));
-// app.use("/api/auth", require("./routes/auth"));
+app.use("/api/login", require("./routes/login"));
+app.use("/api/logout", require("./routes/logout"));
+app.use("/api/auth", require("./routes/auth"));
 
 // ---------------------------------------------------------
 // Protected routes

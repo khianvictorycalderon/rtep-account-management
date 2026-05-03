@@ -1,13 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { BUILT_IN_API_URLS } from "../constants";
+import { Link, useNavigate } from "react-router-dom";
+import { BUILT_IN_API_URLS, PRIVATE_ROUTE_FIRST_PATH } from "../constants";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,12 +18,15 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await axios.post(BUILT_IN_API_URLS.login, {
-        email,
-        password,
-      });
+      await axios.post(
+        BUILT_IN_API_URLS.login,
+        { email, password },
+        { withCredentials: true }
+      );
 
-      console.log("Login success:", response.data);
+      // IMPORTANT: go to protected route
+      navigate(PRIVATE_ROUTE_FIRST_PATH, { replace: true });
+
     } catch (err: any) {
       setError(err?.response?.data?.message || "Login failed");
     } finally {

@@ -20,6 +20,7 @@
     "express-rate-limit": "^8.4.1",
     "pg": "^8.20.0",
     "serverless-http": "^4.0.0",
+    "uuid": "^14.0.0",
     "zod": "^4.4.2"
   },
   "devDependencies": {

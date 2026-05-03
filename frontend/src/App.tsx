@@ -15,6 +15,7 @@ import Changelogs from "./public_pages/Changelogs";
 import SlideToTop from "./components/SlideToTop";
 import PrivacyPolicy from "./public_pages/PrivacyPolicy";
 import TermsConditions from "./public_pages/TermsConditions";
+import PublicLayoutRedirect from "./layouts/PublicLayoutRedirect";
 
 export default function App() {
 
@@ -31,7 +32,7 @@ export default function App() {
     { path: "/terms-and-conditions", element: <TermsConditions /> },
   ];
 
-  const EMPTY_PUBLIC_PAGES = [
+  const PUBLIC_PAGES_REDIRECT = [
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> }
   ];
@@ -48,9 +49,11 @@ export default function App() {
       <Routes>
 
         {/* Public pages without any layout */}
-        {EMPTY_PUBLIC_PAGES.map((page, i) => (
-          <Route key={i} path={page.path} element={page.element} />
-        ))}
+        <Route element={<PublicLayoutRedirect/>}>
+          {PUBLIC_PAGES_REDIRECT.map((page, i) => (
+            <Route key={i} path={page.path} element={page.element} />
+          ))}
+        </Route>
 
         {/* Public pages with navbar layout */}
         <Route element={<PublicLayout/>}>

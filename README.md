@@ -87,7 +87,7 @@ You don’t need to install anything manually, as all dependencies are already m
 This section is provided for reference only, to give you insight into how the project was set up.
 
 ## Backend Dependencies
-- `npm install express cors dotenv pg zod bcryptjs cookie-parser express-rate-limit`
+- `npm install express cors dotenv pg zod bcryptjs cookie-parser express-rate-limit uuid`
 - `npm install nodemon --save-dev`
 
 ## Backend Configuration
