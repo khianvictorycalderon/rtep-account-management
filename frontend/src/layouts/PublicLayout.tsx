@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-export default function Sidebar() {
+export default function PublicLayout() {
   return (
     <div>
-      This is a Sidebar
+      This is a Navbar
       <Outlet/>
     </div>
   )

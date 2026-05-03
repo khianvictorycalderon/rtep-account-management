@@ -5,10 +5,11 @@ import ErrorPage from "./public_pages/ErrorPage";
 import Login from "./public_pages/Login";
 import Register from "./public_pages/Register";
 import LandingPage from "./public_pages/LandingPage";
-import Sidebar from "./layouts/Sidebar";
+import PrivateLayout from "./layouts/PrivateLayout";
 import Dashboard from "./private_pages/Dashboard";
 import Account from "./private_pages/Account";
 import Settings from "./private_pages/Settings";
+import PublicLayout from "./layouts/PublicLayout";
 
 export default function App() {
 
@@ -18,7 +19,10 @@ export default function App() {
   }, []);
 
   const PUBLIC_PAGES = [
-    { path: "/", element: <LandingPage /> },
+    { path: "/", element: <LandingPage /> }
+  ];
+
+  const EMPTY_PUBLIC_PAGES = [
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> }
   ];
@@ -33,13 +37,20 @@ export default function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Public pages */}
-        {PUBLIC_PAGES.map((page, i) => (
+        {/* Public pages without any layout */}
+        {EMPTY_PUBLIC_PAGES.map((page, i) => (
           <Route key={i} path={page.path} element={page.element} />
         ))}
 
+        {/* Public pages with navbar layout */}
+        <Route element={<PublicLayout/>}>
+          {PUBLIC_PAGES.map((page, i) => (
+            <Route key={i} path={page.path} element={page.element} />
+          ))}
+        </Route>
+
         {/* Private pages (with sidebar layout) */}
-        <Route element={<Sidebar />}>
+        <Route element={<PrivateLayout />}>
           {PRIVATE_PAGES.map((page, i) => (
             <Route key={i} path={page.path} element={page.element} />
           ))}
