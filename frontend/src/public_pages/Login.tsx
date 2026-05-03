@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BUILT_IN_API_URLS } from "../constants";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -15,7 +16,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await axios.post("/api/login", {
+      const response = await axios.post(BUILT_IN_API_URLS.login, {
         email,
         password,
       });

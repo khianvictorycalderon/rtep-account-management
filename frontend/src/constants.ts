@@ -1,4 +1,16 @@
 // ---------------------------------------------------
+// API URL
+// ---------------------------------------------------
+const ENV = import.meta.env;
+export const BUILT_IN_API_URLS = {
+    login: `${ENV.VITE_API_URL}/api/login`,                  // POST
+    register: `${ENV.VITE_API_URL}/api/register`,            // POST
+    updateUserData: `${ENV.VITE_API_URL}/api/users/<id>`,    // PATCH
+    deleteUser: `${ENV.VITE_API_URL}/api/users<id>`,         // DELETE
+    authenticate: `${ENV.VITE_API_URL}/api/auth`             // GET
+} as const;
+
+// ---------------------------------------------------
 // Register Page
 // ---------------------------------------------------
 import type { HTMLInputTypeAttribute } from "react";

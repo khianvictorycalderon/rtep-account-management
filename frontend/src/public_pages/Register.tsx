@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { REGISTER_FIELDS } from "../constants";
+import { BUILT_IN_API_URLS, REGISTER_FIELDS } from "../constants";
 
 export default function Register() {
     const [form, setForm] = useState<Record<string, string>>({});
@@ -22,7 +22,7 @@ export default function Register() {
       setError("");
 
       try {
-        await axios.post("/api/register", form);
+        await axios.post(BUILT_IN_API_URLS.register, form);
         console.log("Registered:", form);
       } catch (err: any) {
         setError(err?.response?.data?.message || "Registration failed");
