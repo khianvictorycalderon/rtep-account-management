@@ -1,8 +1,26 @@
 // ---------------------------------------------------
+// Changelogs Page
+// ---------------------------------------------------
+export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
+    {
+        label: "Home",
+        path: "/"
+    },
+    {
+        label: "About",
+        path: "/about"
+    },
+    {
+        label: "Changelogs",
+        path: "/changelogs"
+    }
+]
+
+// ---------------------------------------------------
 // About Page
 // ---------------------------------------------------
-export const ABOUT_DESCRIPTION = "A simple overview of this application";
-export const ABOUT = [
+export const ABOUT_DESCRIPTION: string = "A simple overview of this application";
+export const ABOUT: { title: string; desc: string }[] = [
     {
         title: "What is this?",
         desc: "This is <strong>blah blah blah</strong> with <em>HTML support</em>.",
@@ -16,7 +34,7 @@ export const ABOUT = [
 // ---------------------------------------------------
 // Changelogs Page
 // ---------------------------------------------------
-export const CHANGELOGS = [
+export const CHANGELOGS: { release: string; changes: string[] }[] = [
     {
         release: "1.0.1",
         changes: [
