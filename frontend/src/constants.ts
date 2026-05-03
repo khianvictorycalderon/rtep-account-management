@@ -1,4 +1,83 @@
 // ---------------------------------------------------
+// Register Page
+// ---------------------------------------------------
+import type { HTMLInputTypeAttribute } from "react";
+
+export interface RegisterFieldsProps {
+    label: string;
+    id: string;
+    type: HTMLInputTypeAttribute;
+
+    // optional validation
+    pattern?: string; // regex string
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+
+    placeholder?: string;
+}
+
+export const REGISTER_FIELDS: RegisterFieldsProps[] = [
+    {
+        label: "First Name",
+        id: "first_name",
+        type: "text",
+        required: true,
+        minLength: 2,
+        maxLength: 30,
+        placeholder: "John",
+    },
+    {
+        label: "Middle Name",
+        id: "middle_name",
+        type: "text",
+        required: false,
+        minLength: 2,
+        maxLength: 30,
+        placeholder: "Michael",
+    },
+    {
+        label: "Last Name",
+        id: "last_name",
+        type: "text",
+        required: true,
+        minLength: 2,
+        maxLength: 30,
+        placeholder: "Doe",
+    },
+    {
+        label: "Birth Date",
+        id: "birth_date",
+        type: "date",
+        required: true,
+    },
+    {
+        label: "Email",
+        id: "email",
+        type: "email",
+        required: true,
+        pattern: "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+        placeholder: "you@example.com",
+    },
+    {
+        label: "Password",
+        id: "password",
+        type: "password",
+        required: true,
+        minLength: 8,
+        placeholder: "••••••••",
+    },
+    {
+        label: "Confirm Password",
+        id: "confirm_password",
+        type: "password",
+        required: true,
+        minLength: 8,
+        placeholder: "••••••••",
+    },
+];
+
+// ---------------------------------------------------
 // Navbar
 // ---------------------------------------------------
 export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
