@@ -13,6 +13,65 @@ export const BUILT_IN_API_URLS = {
 export const PRIVATE_ROUTE_FIRST_PATH = "/dashboard";
 
 // ---------------------------------------------------
+// Sidebar Buttons
+// ---------------------------------------------------
+export type SidebarButton = {
+  label: string;
+  path: string;
+  icon: string;
+};
+
+export const SIDEBAR_BUTTONS: SidebarButton[] = [
+    {
+        label: "Dashboard",
+        path: "/dashboard",
+        icon: `
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-width="2" d="M3 13h8V3H3v10zm10 8h8V11h-8v10zm0-18v6h8V3h-8zM3 21h8v-6H3v6z" />
+            </svg>
+        `,
+    },
+    {
+        label: "Account",
+        path: "/account",
+        icon: `
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-width="2" d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5z" />
+            </svg>
+        `,
+    },
+    {
+        label: "Settings",
+        path: "/settings",
+        icon: `
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-width="2" d="M12 8a4 4 0 100 8 4 4 0 000-8zm9 4a7.8 7.8 0 00-.1-1l2-1.5-2-3.5-2.3 1a7.5 7.5 0 00-1.7-1l-.3-2.5h-4l-.3 2.5a7.5 7.5 0 00-1.7 1l-2.3-1-2 3.5 2 1.5a7.8 7.8 0 000 2l-2 1.5 2 3.5 2.3-1c.5.4 1.1.7 1.7 1l.3 2.5h4l.3-2.5c.6-.3 1.2-.6 1.7-1l2.3 1 2-3.5-2-1.5c.1-.3.1-.7.1-1z" />
+            </svg>
+        `,
+    },
+];
+
+export const TOPNAV_HEADER = "RTEP Full-Stack System Template";
+
+// ---------------------------------------------------
+// Navbar Buttons
+// ---------------------------------------------------
+export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
+    {
+        label: "Home",
+        path: "/"
+    },
+    {
+        label: "About",
+        path: "/about"
+    },
+    {
+        label: "Changelogs",
+        path: "/changelogs"
+    }
+];
+
+// ---------------------------------------------------
 // Register Page
 // ---------------------------------------------------
 import type { HTMLInputTypeAttribute } from "react";
@@ -89,24 +148,6 @@ export const REGISTER_FIELDS: RegisterFieldsProps[] = [
         minLength: 8,
         placeholder: "••••••••",
     },
-];
-
-// ---------------------------------------------------
-// Navbar
-// ---------------------------------------------------
-export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
-    {
-        label: "Home",
-        path: "/"
-    },
-    {
-        label: "About",
-        path: "/about"
-    },
-    {
-        label: "Changelogs",
-        path: "/changelogs"
-    }
 ];
 
 // ---------------------------------------------------

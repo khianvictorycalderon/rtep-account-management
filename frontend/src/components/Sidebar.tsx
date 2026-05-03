@@ -1,0 +1,153 @@
+import { Link, useLocation } from "react-router-dom";
+import { BUILT_IN_API_URLS, SIDEBAR_BUTTONS } from "../constants";
+import axios from "axios";
+
+type Props = {
+    open: boolean;
+    setOpen: (v: boolean) => void;
+};
+
+type SidebarItem = {
+    label: string;
+    path?: string;
+    icon?: string;
+    action?: "logout";
+};
+
+export default function Sidebar({ open, setOpen }: Props) {
+    const location = useLocation();
+
+    const isActive = (path: string) =>
+        location.pathname === path || location.pathname.startsWith(path + "/");
+
+    const currentPage =
+        SIDEBAR_BUTTONS.find((p) => isActive(p.path))?.label || "";
+
+    // ✅ add logout as a "virtual route item"
+    const SIDEBAR_ITEMS: SidebarItem[] = [
+        ...SIDEBAR_BUTTONS,
+        {
+            label: "Logout",
+            action: "logout",
+        },
+    ];
+
+    const handleLogout = async () => {
+        try {
+            await axios.delete(BUILT_IN_API_URLS.logout, {
+                withCredentials: true,
+            });
+
+            window.location.href = "/login";
+        } catch (err) {
+            console.error("Logout failed", err);
+        }
+    };
+
+    return (
+        <>
+            {/* BACKDROP */}
+            {open && (
+                <div
+                    className="fixed inset-0 bg-black/40 z-40 md:hidden"
+                    onClick={() => setOpen(false)}
+                />
+            )}
+
+            {/* SIDEBAR */}
+            <aside
+                className={`
+                    fixed md:static z-50
+                    top-0 left-0 h-full w-64
+                    bg-zinc-100 dark:bg-zinc-900
+                    border-r border-zinc-200 dark:border-zinc-800
+                    flex flex-col
+                    transform transition-transform duration-200
+                    ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+                `}
+            >
+                {/* HEADER */}
+                <div className="relative p-4 font-semibold text-zinc-900 dark:text-zinc-100 border-b border-zinc-200 dark:border-zinc-800">
+                    {currentPage}
+
+                    <button
+                        onClick={() => setOpen(false)}
+                        className="md:hidden absolute right-3 top-3 p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                    >
+                        <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                </div>
+
+                {/* NAVIGATION */}
+                <nav className="p-2 space-y-1 flex-1">
+                    {SIDEBAR_ITEMS.map((item, idx) => {
+                        // 🔥 LOGOUT BUTTON
+                        if (item.action === "logout") {
+                            return (
+                                <button
+                                    key={`logout-${idx}`}
+                                    onClick={handleLogout}
+                                    className="
+                                        w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-sm
+                                        text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30
+                                    "
+                                >
+                                    <svg
+                                        className="w-5 h-5"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
+                                        />
+                                    </svg>
+
+                                    Logout
+                                </button>
+                            );
+                        }
+
+                        // 🔥 NORMAL NAV ITEM
+                        return (
+                            <Link
+                                key={item.path}
+                                to={item.path!}
+                                onClick={() => setOpen(false)}
+                                className={`
+                                    flex items-center gap-2 px-3 py-2 rounded-md text-sm transition
+                                    ${
+                                        isActive(item.path!)
+                                            ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                                            : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                                    }
+                                `}
+                            >
+                                <span
+                                    className="w-5 h-5"
+                                    dangerouslySetInnerHTML={{ __html: item.icon! }}
+                                />
+                                <span>{item.label}</span>
+                            </Link>
+                        );
+                    })}
+                </nav>
+            </aside>
+        </>
+    );
+}
