@@ -2,9 +2,11 @@ import { Outlet } from "react-router-dom";
 
 export default function PublicLayout() {
   return (
-    <div>
-      This is a Navbar
+    <>
+      <nav className="fixed top-0 left-0">
+        Navbar
+      </nav>
       <Outlet/>
-    </div>
+    </>
   )
 }
