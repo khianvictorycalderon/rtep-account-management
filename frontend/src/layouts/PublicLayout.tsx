@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function PublicLayout() {
   return (
     <>
-      <nav className="fixed top-0 left-0">
-        Navbar
-      </nav>
+      <Navbar/>
       <Outlet/>
     </>
   )
