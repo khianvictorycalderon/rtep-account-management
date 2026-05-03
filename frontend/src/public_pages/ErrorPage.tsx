@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ERROR_PAGE_MESSAGE } from "../constants";
 
 export default function ErrorPage() {
@@ -26,12 +27,12 @@ export default function ErrorPage() {
         </p>
 
         <div className="flex items-center justify-center gap-4 pt-4">
-          <a
-            href="/"
-            className="cursor-pointer px-6 py-3 rounded-xl bg-zinc-700 hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-500 text-white transition font-medium shadow-lg shadow-black/10"
+          <Link
+            to="/"
+            className="px-6 py-3 rounded-xl bg-zinc-700 hover:bg-zinc-800 dark:bg-zinc-600 dark:hover:bg-zinc-500 text-white transition font-medium shadow-lg shadow-black/10"
           >
             Go Home
-          </a>
+          </Link>
 
           <button
             onClick={handleBack}
@@ -40,6 +41,7 @@ export default function ErrorPage() {
             Go Back
           </button>
         </div>
+
       </div>
     </div>
   );
