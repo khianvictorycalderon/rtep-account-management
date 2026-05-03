@@ -51,7 +51,8 @@ app.use("/api/verify", require("./routes/verify"));
 // Protected routes
 // ---------------------------------------------------------
 const auth = require("./middleware/auth");
-app.use("/api/users", auth, require("./protected_routes/users"));
+app.use(auth);
+app.use("/api/users", require("./protected_routes/users"));
 /*
   Add more protected paths below
 */
