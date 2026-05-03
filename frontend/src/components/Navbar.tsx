@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { NAVBAR_BUTTONS } from "../constants";
+import { NAVBAR_BUTTONS, NAVBAR_HEADER } from "../constants";
 import { getTheme, setTheme } from "../utils/theme";
 
 export default function Navbar() {
@@ -25,12 +25,11 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Brand */}
-        <Link
-          to="/"
+        <span
           className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
         >
-          App
-        </Link>
+          {NAVBAR_HEADER}
+        </span>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-6">

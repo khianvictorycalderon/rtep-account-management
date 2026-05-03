@@ -64,6 +64,8 @@ export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
     }
 ];
 
+export const NAVBAR_HEADER = "My App Account Management";
+
 // ---------------------------------------------------
 // Register Page
 // ---------------------------------------------------
