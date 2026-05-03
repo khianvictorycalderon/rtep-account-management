@@ -3,7 +3,7 @@ import { CHANGELOGS } from "../constants";
 export default function Changelogs() {
 
   return (
-    <div className="min-h-screen w-full flex justify-center bg-zinc-50 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 px-6 py-16">
+    <div className="min-h-screen w-full flex justify-center bg-zinc-50 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-200 px-6 py-24">
       <div className="w-full max-w-3xl space-y-10">
 
         {/* Header */}
