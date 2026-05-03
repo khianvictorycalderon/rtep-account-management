@@ -4,11 +4,11 @@ export default function About() {
   const ABOUT = [
     {
       title: "What is this?",
-      desc: "This is blah blah blah",
+      desc: "This is <strong>blah blah blah</strong> with <em>HTML support</em>.",
     },
     {
       title: "How did it come to this?",
-      desc: "It went through like this blah blah blah",
+      desc: "It went through like this <br/> blah blah <u>blah</u>",
     },
   ];
 
@@ -36,9 +36,11 @@ export default function About() {
               <h2 className="text-lg font-semibold text-zinc-800 dark:text-zinc-100">
                 {item.title}
               </h2>
-              <p className="mt-2 text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                {item.desc}
-              </p>
+
+              <p
+                className="mt-2 text-zinc-600 dark:text-zinc-400 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: item.desc }}
+              />
             </div>
           ))}
         </div>
