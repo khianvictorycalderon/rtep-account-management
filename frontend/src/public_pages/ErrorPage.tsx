@@ -1,3 +1,5 @@
+import { ERROR_PAGE_MESSAGE } from "../constants";
+
 export default function ErrorPage() {
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -16,11 +18,11 @@ export default function ErrorPage() {
         </h1>
 
         <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800 dark:text-zinc-200">
-          Page not found
+          {ERROR_PAGE_MESSAGE.main}
         </h2>
 
         <p className="text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
-          The page you're looking for doesn't exist or has been moved.
+          {ERROR_PAGE_MESSAGE.additional}
         </p>
 
         <div className="flex items-center justify-center gap-4 pt-4">

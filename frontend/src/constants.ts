@@ -32,3 +32,11 @@ export const CHANGELOGS = [
         ]
     },
   ];
+
+// ---------------------------------------------------
+// Error Page
+// ---------------------------------------------------
+export const ERROR_PAGE_MESSAGE: { main: string; additional: string } = {
+    main: "Page not found",
+    additional: "The page you're looking for doesn't exist or has been moved."
+}
