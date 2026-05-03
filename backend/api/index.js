@@ -1,6 +1,7 @@
 // ---------------------------------------------------------
 // Imports
 // ---------------------------------------------------------
+const { PORT } = require("./constants");
 require("dotenv").config(); // Load env FIRST
 const express = require("express");
 const cors = require("cors");
@@ -58,7 +59,6 @@ app.use("/api/auth", require("./routes/auth"));
 // Development testing (nodemon)
 // ---------------------------------------------------------
 if (require.main === module) {
-  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });

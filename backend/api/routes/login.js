@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const pool = require("../db");
 const { v4: uuidv4 } = require("uuid");
+const { SESSION_DURATION_HOURS } = require("../constants");
 
 const router = express.Router();
 
@@ -50,8 +51,9 @@ router.post("/", async (req, res) => {
         // -----------------------------
         const sessionId = uuidv4();
 
-        const expiresAt = new Date();
-        expiresAt.setDate(expiresAt.getDate() + 7); // 7 days
+        const expiresAt = new Date(
+            Date.now() + SESSION_DURATION_HOURS * 60 * 60 * 1000
+        );
 
         // Optional: extract metadata
         const ip =
