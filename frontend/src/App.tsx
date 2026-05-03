@@ -12,6 +12,7 @@ import Settings from "./private_pages/Settings";
 import PublicLayout from "./layouts/PublicLayout";
 import About from "./public_pages/About";
 import Changelogs from "./public_pages/Changelogs";
+import SlideToTop from "./components/SlideToTop";
 
 export default function App() {
 
@@ -39,6 +40,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <SlideToTop/>
       <Routes>
 
         {/* Public pages without any layout */}
