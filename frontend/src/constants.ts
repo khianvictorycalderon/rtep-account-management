@@ -1,5 +1,5 @@
 // ---------------------------------------------------
-// Changelogs Page
+// Navbar
 // ---------------------------------------------------
 export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
     {
@@ -15,6 +15,39 @@ export const NAVBAR_BUTTONS: { label: string; path: string }[] = [
         path: "/changelogs"
     }
 ];
+
+// ---------------------------------------------------
+// Footer
+// ---------------------------------------------------
+export const FOOTER_BUTTONS: Record<
+  string,
+  { label: string; href: string }[]
+> = {
+  Product: [
+    { label: "Features", href: "/features" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Documentation", href: "/docs" },
+    { label: "Updates", href: "/changelogs" },
+  ],
+
+  Company: [
+    { label: "About", href: "/about" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact", href: "/contact" },
+  ],
+
+  Resources: [
+    { label: "Blog", href: "/blog" },
+    { label: "Help Center", href: "/help" },
+    { label: "Community", href: "/community" },
+  ],
+
+  Legal: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Cookie Policy", href: "/cookies" },
+  ],
+};
 
 // ---------------------------------------------------
 // About Page
