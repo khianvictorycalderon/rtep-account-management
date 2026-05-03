@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FOOTER_BUTTONS } from "../constants";
 
 export default function Footer() {
@@ -40,16 +41,16 @@ export default function Footer() {
         <div className="mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
 
           <p className="text-sm text-zinc-500 dark:text-zinc-500">
-            © {new Date().getFullYear()} Your App. All rights reserved.
+            © {new Date().getFullYear()} All rights reserved.
           </p>
 
           <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-500">
-            <a href="/privacy" className="hover:text-zinc-800 dark:hover:text-zinc-200 transition">
-              Privacy
-            </a>
-            <a href="/terms" className="hover:text-zinc-800 dark:hover:text-zinc-200 transition">
-              Terms
-            </a>
+            <Link to="/privacy-policy" className="hover:text-zinc-800 dark:hover:text-zinc-200 transition">
+              Privacy Policy
+            </Link>
+            <Link to="/terms-and-conditions" className="hover:text-zinc-800 dark:hover:text-zinc-200 transition">
+              Terms & Conditions
+            </Link>
           </div>
 
         </div>
