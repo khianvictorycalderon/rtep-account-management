@@ -27,6 +27,56 @@ const validatePassword = (password: string): string | null => {
   return null;
 };
 
+const EyeIcon = ({ open }: { open: boolean }) =>
+  open ? (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+  ) : (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.5-4.166M6.5 6.5A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.966 9.966 0 01-1.98 3.462M3 3l18 18" />
+    </svg>
+  );
+
+// Wrapper for password inputs with eye toggle
+const PasswordInput = ({
+  placeholder,
+  value,
+  disabled,
+  onChange,
+  inputClass,
+}: {
+  placeholder: string;
+  value: string;
+  disabled: boolean;
+  onChange: (v: string) => void;
+  inputClass: (disabled: boolean) => string;
+}) => {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <input
+        type={show ? "text" : "password"}
+        placeholder={placeholder}
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value)}
+        className={`${inputClass(disabled)} pr-10`}
+      />
+      <button
+        type="button"
+        onClick={() => setShow((v) => !v)}
+        disabled={disabled}
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 cursor-pointer disabled:cursor-not-allowed transition"
+        tabIndex={-1}
+      >
+        <EyeIcon open={show} />
+      </button>
+    </div>
+  );
+};
+
 export default function Account() {
   const [user, setUser] = useState<User | null>(null);
   const [form, setForm] = useState<Record<string, any>>({});
@@ -232,19 +282,15 @@ export default function Account() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {profileFields.map((field) => (
               <div key={field.id} className="flex flex-col gap-1">
-
                 <label className="text-sm text-neutral-600 dark:text-neutral-300">
                   {field.label}
                 </label>
-
                 <input
                   type={field.type}
                   value={form[field.id] || ""}
                   readOnly={field.id === "email"}
                   disabled={isSavingInfo}
-                  onChange={(e) =>
-                    setForm({ ...form, [field.id]: e.target.value })
-                  }
+                  onChange={(e) => setForm({ ...form, [field.id]: e.target.value })}
                   className={inputClass(isSavingInfo)}
                 />
               </div>
@@ -284,50 +330,29 @@ export default function Account() {
 
         <div className="p-6 space-y-4">
 
-          <input
-            type="password"
+          <PasswordInput
             placeholder="Current Password"
-            disabled={isSavingPassword}
             value={passwordForm.current_password}
-            onChange={(e) =>
-              setPasswordForm({
-                ...passwordForm,
-                current_password: e.target.value,
-              })
-            }
-            className={inputClass(isSavingPassword)}
+            disabled={isSavingPassword}
+            onChange={(v) => setPasswordForm({ ...passwordForm, current_password: v })}
+            inputClass={inputClass}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            <input
-              type="password"
+            <PasswordInput
               placeholder="New Password"
-              disabled={isSavingPassword}
               value={passwordForm.new_password}
-              onChange={(e) =>
-                setPasswordForm({
-                  ...passwordForm,
-                  new_password: e.target.value,
-                })
-              }
-              className={inputClass(isSavingPassword)}
-            />
-
-            <input
-              type="password"
-              placeholder="Confirm Password"
               disabled={isSavingPassword}
-              value={passwordForm.confirm_password}
-              onChange={(e) =>
-                setPasswordForm({
-                  ...passwordForm,
-                  confirm_password: e.target.value,
-                })
-              }
-              className={inputClass(isSavingPassword)}
+              onChange={(v) => setPasswordForm({ ...passwordForm, new_password: v })}
+              inputClass={inputClass}
             />
-
+            <PasswordInput
+              placeholder="Confirm Password"
+              value={passwordForm.confirm_password}
+              disabled={isSavingPassword}
+              onChange={(v) => setPasswordForm({ ...passwordForm, confirm_password: v })}
+              inputClass={inputClass}
+            />
           </div>
 
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
@@ -385,13 +410,12 @@ export default function Account() {
                 Enter your password to confirm account deletion:
               </p>
 
-              <input
-                type="password"
+              <PasswordInput
                 placeholder="Your password"
-                disabled={isDeletingAccount}
                 value={deletePassword}
-                onChange={(e) => setDeletePassword(e.target.value)}
-                className={inputClass(isDeletingAccount)}
+                disabled={isDeletingAccount}
+                onChange={(v) => setDeletePassword(v)}
+                inputClass={inputClass}
               />
 
               {deleteMessage.type && (

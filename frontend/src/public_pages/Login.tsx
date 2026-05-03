@@ -3,9 +3,35 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { BUILT_IN_API_URLS, PRIVATE_ROUTE_FIRST_PATH } from "../constants";
 
+const EyeIcon = ({ open }: { open: boolean }) =>
+  open ? (
+    // Eye open
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+  ) : (
+    // Eye closed
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.5-4.166M6.5 6.5A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.966 9.966 0 01-1.98 3.462M3 3l18 18" />
+    </svg>
+  );
+
+const inputClass = `
+  w-full px-3 py-2 rounded-md
+  border border-zinc-300/70 dark:border-zinc-700/60
+  bg-white/70 dark:bg-zinc-800/50
+  text-zinc-900 dark:text-zinc-100
+  placeholder:text-zinc-400 dark:placeholder:text-zinc-500
+  focus:outline-none
+  focus:ring-2 focus:ring-zinc-400/30 dark:focus:ring-zinc-600/40
+  transition
+`;
+
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -24,7 +50,6 @@ export default function Login() {
         { withCredentials: true }
       );
 
-      // IMPORTANT: go to protected route
       navigate(PRIVATE_ROUTE_FIRST_PATH, { replace: true });
 
     } catch (err: any) {
@@ -68,16 +93,10 @@ export default function Login() {
 
         {/* Header */}
         <div className="text-center space-y-1">
-          <h1 className="
-            text-3xl font-semibold
-            text-zinc-900 dark:text-zinc-100
-          ">
+          <h1 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-100">
             Welcome back
           </h1>
-          <p className="
-            text-sm
-            text-zinc-500 dark:text-zinc-400
-          ">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Login to your account
           </p>
         </div>
@@ -87,60 +106,42 @@ export default function Login() {
 
           {/* Email */}
           <div className="space-y-1">
-            <label className="
-              text-sm
-              text-zinc-600 dark:text-zinc-400
-            ">
+            <label className="text-sm text-zinc-600 dark:text-zinc-400">
               Email / Username
             </label>
-
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="
-                w-full px-3 py-2 rounded-md
-                border
-                border-zinc-300/70 dark:border-zinc-700/60
-                bg-white/70 dark:bg-zinc-800/50
-                text-zinc-900 dark:text-zinc-100
-                placeholder:text-zinc-400 dark:placeholder:text-zinc-500
-                focus:outline-none
-                focus:ring-2 focus:ring-zinc-400/30 dark:focus:ring-zinc-600/40
-                transition
-              "
+              className={inputClass}
               placeholder="you@example.com"
             />
           </div>
 
           {/* Password */}
           <div className="space-y-1">
-            <label className="
-              text-sm
-              text-zinc-600 dark:text-zinc-400
-            ">
+            <label className="text-sm text-zinc-600 dark:text-zinc-400">
               Password
             </label>
-
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="
-                w-full px-3 py-2 rounded-md
-                border
-                border-zinc-300/70 dark:border-zinc-700/60
-                bg-white/70 dark:bg-zinc-800/50
-                text-zinc-900 dark:text-zinc-100
-                placeholder:text-zinc-400 dark:placeholder:text-zinc-500
-                focus:outline-none
-                focus:ring-2 focus:ring-zinc-400/30 dark:focus:ring-zinc-600/40
-                transition
-              "
-              placeholder="••••••••"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={`${inputClass} pr-10`}
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 cursor-pointer transition"
+                tabIndex={-1}
+              >
+                <EyeIcon open={showPassword} />
+              </button>
+            </div>
           </div>
 
           {/* Error */}
@@ -175,18 +176,11 @@ export default function Login() {
         </form>
 
         {/* Footer */}
-        <p className="
-          text-sm text-center
-          text-zinc-500 dark:text-zinc-400
-        ">
-          Don’t have an account?{" "}
+        <p className="text-sm text-center text-zinc-500 dark:text-zinc-400">
+          Don't have an account?{" "}
           <Link
             to="/register"
-            className="
-              text-zinc-800 dark:text-zinc-200
-              hover:underline
-              transition
-            "
+            className="text-zinc-800 dark:text-zinc-200 hover:underline transition"
           >
             Register
           </Link>
