@@ -50,10 +50,13 @@ app.use("/api/auth", require("./routes/auth"));
 // ---------------------------------------------------------
 // Protected routes
 // ---------------------------------------------------------
-// app.use() // verify in cookies or something
-// app.use("/api/users/:id", require("./protected_routes/users"));
+const verify = require("./middleware/verify");
+app.use("/api/users", verify, require("./protected_routes/users"));
+/*
+  Add more protected paths below
+*/
 
-  // Add more here if authentication is required
+// ===================== HERE ==========================
 
 // ---------------------------------------------------------
 // Development testing (nodemon)

@@ -6,7 +6,9 @@ export const BUILT_IN_API_URLS = {
     login: `${ENV.VITE_API_URL}/api/login`,                                                                // POST
     logout: `${ENV.VITE_API_URL}/api/logout`,                                                              // DELETE
     register: `${ENV.VITE_API_URL}/api/register`,                                                          // POST
+    getUserData: `${ENV.VITE_API_URL}/api/users/me`,                                                       // GET
     updateUserData: `${ENV.VITE_API_URL}/api/users`, // extend with /<id>                                  // PATCH
+    updatePassword: `${ENV.VITE_API_URL}/api/users/password`,                                              // PATCH
     deleteUser: `${ENV.VITE_API_URL}/api/users`,  // extend with /<id>                                     // DELETE
     authenticate: `${ENV.VITE_API_URL}/api/auth`  // used to verify if user currently logged in or not     // GET
 } as const;

@@ -3,6 +3,15 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { BUILT_IN_API_URLS, REGISTER_FIELDS } from "../constants";
 
+const validatePassword = (password: string): string | null => {
+  if (password.length < 8) return "Password must be at least 8 characters";
+  if (!/[A-Z]/.test(password)) return "Password must contain at least one uppercase letter";
+  if (!/[a-z]/.test(password)) return "Password must contain at least one lowercase letter";
+  if (!/[0-9]/.test(password)) return "Password must contain at least one number";
+  if (!/[^A-Za-z0-9]/.test(password)) return "Password must contain at least one special character";
+  return null;
+};
+
 export default function Register() {
     const [form, setForm] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
@@ -19,6 +28,17 @@ export default function Register() {
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
 
+      const weakError = validatePassword(form.password || "");
+      if (weakError) {
+        setError(weakError);
+        return;
+      }
+
+      if (form.password !== form.confirm_password) {
+        setError("Passwords do not match");
+        return;
+      }
+
       setLoading(true);
       setError("");
       setSuccess(false);
@@ -27,7 +47,7 @@ export default function Register() {
         await axios.post(BUILT_IN_API_URLS.register, form);
 
         setSuccess(true);
-        setForm({}); // optional: clear form
+        setForm({});
       } catch (err: any) {
         setError(err?.response?.data?.message || "Registration failed");
       } finally {
@@ -103,6 +123,13 @@ export default function Register() {
                       transition
                     "
                   />
+
+                  {/* Password hint */}
+                  {field.id === "password" && (
+                    <p className="text-xs text-zinc-400 dark:text-zinc-500">
+                      Min 8 chars, uppercase, lowercase, number, special character.
+                    </p>
+                  )}
 
                 </div>
               ))}

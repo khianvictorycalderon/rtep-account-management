@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BUILT_IN_API_URLS, SIDEBAR_BUTTONS } from "../constants";
 import axios from "axios";
 
@@ -16,6 +16,7 @@ type SidebarItem = {
 
 export default function Sidebar({ open, setOpen }: Props) {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const isActive = (path: string) =>
         location.pathname === path || location.pathname.startsWith(path + "/");
@@ -35,7 +36,7 @@ export default function Sidebar({ open, setOpen }: Props) {
                 withCredentials: true,
             });
 
-            window.location.href = "/login";
+            navigate("/login");
         } catch (err) {
             console.error("Logout failed", err);
         }

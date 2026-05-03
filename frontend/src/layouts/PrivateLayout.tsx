@@ -38,21 +38,21 @@ export default function PrivateLayout() {
     }
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="h-screen flex flex-col">
 
-            {/* n = TOP NAV */}
+            {/* TOP NAV */}
             <TopNav onMenuClick={() => setSidebarOpen(true)} />
 
-            {/* s + m row */}
+            {/* BODY */}
             <div className="flex flex-1 overflow-hidden">
 
-                {/* s = SIDEBAR */}
-                <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
+            {/* SIDEBAR */}
+            <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
-                {/* m = MAIN */}
-                <main className="flex-1 overflow-y-auto p-4 bg-neutral-100 dark:bg-neutral-900">
-                    <Outlet />
-                </main>
+            {/* MAIN */}
+            <main className="flex-1 overflow-y-auto p-4 bg-neutral-100 dark:bg-neutral-900">
+                <Outlet />
+            </main>
 
             </div>
 
