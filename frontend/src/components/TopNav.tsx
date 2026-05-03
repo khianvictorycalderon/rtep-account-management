@@ -55,9 +55,9 @@ export default function TopNav({ onMenuClick }: Props) {
 
                 <button
                     onClick={() => setThemeOpen(v => !v)}
-                    className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-xs text-neutral-800 dark:text-neutral-200"
+                    className="cursor-pointer px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-xs text-neutral-800 dark:text-neutral-200"
                 >
-                    Theme: {theme} ▾
+                    <span className="hidden md:inline">Theme:</span> {theme} ▾
                 </button>
 
                 {themeOpen && (
@@ -67,7 +67,7 @@ export default function TopNav({ onMenuClick }: Props) {
                             <button
                                 key={t}
                                 onClick={() => changeTheme(t)}
-                                className="w-full text-left px-3 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
+                                className="cursor-pointer w-full text-left px-3 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
                             >
                                 {t}
                             </button>
