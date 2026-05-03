@@ -10,7 +10,7 @@ export const BUILT_IN_API_URLS = {
     updateUserData: `${ENV.VITE_API_URL}/api/users`, // extend with /<id>                                  // PATCH
     updatePassword: `${ENV.VITE_API_URL}/api/users/password`,                                              // PATCH
     deleteUser: `${ENV.VITE_API_URL}/api/users`,  // extend with /<id>                                     // DELETE
-    authenticate: `${ENV.VITE_API_URL}/api/auth`  // used to verify if user currently logged in or not     // GET
+    authenticate: `${ENV.VITE_API_URL}/api/verify`  // used to verify if user currently logged in or not   // GET
 } as const;
 export const PRIVATE_ROUTE_FIRST_PATH = "/dashboard";
 

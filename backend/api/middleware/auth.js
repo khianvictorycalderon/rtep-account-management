@@ -1,6 +1,6 @@
 const pool = require("../db");
 
-module.exports = async function verify(req, res, next) {
+module.exports = async function auth(req, res, next) {
   try {
     const sessionId = req.cookies?.session_id;
 
@@ -27,7 +27,7 @@ module.exports = async function verify(req, res, next) {
     req.user = { id: session.user_id };
     next();
   } catch (err) {
-    console.error("Verify middleware error:", err);
+    console.error("Auth middleware error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 };

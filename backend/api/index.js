@@ -45,13 +45,13 @@ app.get("/", (req, res) => {
 app.use("/api/register", require("./routes/register"));
 app.use("/api/login", require("./routes/login"));
 app.use("/api/logout", require("./routes/logout"));
-app.use("/api/auth", require("./routes/auth"));
+app.use("/api/verify", require("./routes/verify"));
 
 // ---------------------------------------------------------
 // Protected routes
 // ---------------------------------------------------------
-const verify = require("./middleware/verify");
-app.use("/api/users", verify, require("./protected_routes/users"));
+const auth = require("./middleware/auth");
+app.use("/api/users", auth, require("./protected_routes/users"));
 /*
   Add more protected paths below
 */
