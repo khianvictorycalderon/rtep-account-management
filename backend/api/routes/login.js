@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const pool = require("../db");
-const crypto = require("crypto"); // ✅ built-in, no install needed
 const { SESSION_DURATION_HOURS } = require("../constants");
 
 const router = express.Router();
@@ -47,10 +46,8 @@ router.post("/", async (req, res) => {
     }
 
     // -----------------------------
-    // Create session ID (NO UUID)
+    // Expiry
     // -----------------------------
-    const sessionId = crypto.randomUUID(); // ✅ modern + supported on Vercel
-
     const expiresAt = new Date(
       Date.now() + SESSION_DURATION_HOURS * 60 * 60 * 1000
     );
@@ -66,21 +63,23 @@ router.post("/", async (req, res) => {
     const userAgent = req.headers["user-agent"] || "";
 
     // -----------------------------
-    // Store session
+    // Store session & get DB-generated ID
     // -----------------------------
-    await pool.query(
+    const result = await pool.query(
       `
       INSERT INTO sessions (
-        id,
         user_id,
         ip,
         user_agent,
         expires_at
       )
-      VALUES ($1, $2, $3, $4, $5)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id
       `,
-      [sessionId, user.id, ip, userAgent, expiresAt]
+      [user.id, ip, userAgent, expiresAt]
     );
+
+    const sessionId = result.rows[0].id;
 
     // -----------------------------
     // Set cookie

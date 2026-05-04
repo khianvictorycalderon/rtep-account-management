@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { BUILT_IN_API_URLS } from "../constants";
 import Sidebar from "../components/Sidebar";
 import TopNav from "../components/TopNav";
@@ -10,6 +10,7 @@ export default function PrivateLayout() {
     const [loading, setLoading] = useState(true);
     const [isAuth, setIsAuth] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -17,7 +18,6 @@ export default function PrivateLayout() {
                 const res = await axios.get(BUILT_IN_API_URLS.verify, {
                     withCredentials: true,
                 });
-
                 setIsAuth(res.data === true);
             } catch {
                 setIsAuth(false);
@@ -27,7 +27,10 @@ export default function PrivateLayout() {
         };
 
         checkAuth();
-    }, []);
+
+        const interval = setInterval(checkAuth, 5 * 60 * 1000);
+        return () => clearInterval(interval);
+    }, [location.pathname]);
 
     if (loading) {
         return <Loading/>

@@ -53,6 +53,7 @@ app.use("/api/verify", require("./routes/verify"));
 const auth = require("./middleware/auth");
 app.use(auth);
 app.use("/api/users", require("./protected_routes/users"));
+app.use("/api/login-sessions", require("./protected_routes/login-sessions"));
 /*
   Add more protected paths below
 */
