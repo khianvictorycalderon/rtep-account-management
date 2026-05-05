@@ -36,10 +36,12 @@ router.get("/", async (req, res) => {
       FROM sessions
       WHERE user_id = $1
         AND expires_at > NOW()
-      ORDER BY last_seen DESC
+      ORDER BY
+        (id = $4) DESC,
+        last_seen DESC
       LIMIT $2 OFFSET $3
       `,
-      [userId, limit, offset]
+      [userId, limit, offset, currentSessionId]
     );
 
     const sessions = result.rows.map((s) => ({
