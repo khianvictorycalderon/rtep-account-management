@@ -38,9 +38,9 @@
     CREATE TABLE users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
-        first_name VARCHAR(30) NOT NULL,
-        middle_name VARCHAR(30),
-        last_name VARCHAR(30) NOT NULL,
+        first_name VARCHAR(200) NOT NULL,
+        middle_name VARCHAR(200),
+        last_name VARCHAR(200) NOT NULL,
 
         birth_date DATE NOT NULL,
 
