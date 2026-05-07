@@ -5,10 +5,18 @@ export default function SlideToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const scrollToTop = () => {
+      // Try window first (PublicLayout)
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Then fallback to PrivateLayout scroll container
+      const main = document.querySelector("main");
+      if (main) {
+        main.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
+    requestAnimationFrame(scrollToTop);
   }, [pathname]);
 
   return null;
