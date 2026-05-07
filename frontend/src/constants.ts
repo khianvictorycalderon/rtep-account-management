@@ -179,6 +179,8 @@ export const FOOTER_BUTTONS: Record<
   ],
 };
 
+export const PRIVATE_FOOTER_LABEL = "My App";
+
 // ---------------------------------------------------
 // About Page
 // ---------------------------------------------------

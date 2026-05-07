@@ -5,6 +5,7 @@ import { BUILT_IN_API_URLS } from "../constants";
 import Sidebar from "../components/Sidebar";
 import TopNav from "../components/TopNav";
 import Loading from "../components/Loading";
+import PrivateFooter from "../components/PrivateFooter";
 
 export default function PrivateLayout() {
     const [loading, setLoading] = useState(true);
@@ -55,6 +56,7 @@ export default function PrivateLayout() {
             {/* MAIN */}
             <main className="flex-1 overflow-y-auto p-4 bg-neutral-100 dark:bg-neutral-900">
                 <Outlet />
+                <PrivateFooter/>
             </main>
 
             </div>
